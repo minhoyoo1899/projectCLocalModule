@@ -42,7 +42,7 @@ const indexRouter = (addr) => {
 // indexRouter('/public/js/style/clientInfo/styleMaker.js');
 // indexRouter('/source/img/client_info_icon.png');
 
-//clientInfo main img
+//clientInfo main img //clientInfo main img //clientInfo main img
 // indexRouter('/source/img/client_info__movie1.png');
 // indexRouter('/source/img/client_info__movie2.png');
 // indexRouter('/source/img/client_info__movie3.png');
