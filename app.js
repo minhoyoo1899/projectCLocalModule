@@ -55,9 +55,6 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use('/source', express.static(__dirname + '/source'));
 
 
-
-
-
 app.get('/', (req, res) => { 
   //res.send('Hello, Express');
   res.sendFile(path.join(__dirname, '/public/index.html'));
@@ -87,6 +84,37 @@ app.get('/searchMovie', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/search/movieList.html'));
 });
 
+app.get('/board', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/board/board.html'));
+});
+
+app.get('/generalForum', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/board/generalForum.html'));
+});
+
+app.get('/logIn', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/logIn/login.html'));
+});
+
+app.get('/movieInfo', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/movieInfo/movieInfor.html'));
+});
+
+app.get('/myBoardInfo', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboard.html'));
+});
+
+app.get('/myBoardHead', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboardHead.html'));
+});
+
+app.get('/signInPage', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/signInPage/signInPage.html'));
+});
+
+app.get('/slider', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/slider/moveSlide.html'));
+});
 
 
 app.listen(app.get('port'), () => { 
