@@ -2,7 +2,7 @@
   "name": "inthemmoudlize",
   "version": "0.0.1",
   "description": "wewqq",
-  "main": "./build/index.js",
+  "main": "./public/index.js",
   "scripts": {
     "start": "nodemon app",
     "test": "asd"
