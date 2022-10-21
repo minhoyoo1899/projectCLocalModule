@@ -9,12 +9,11 @@ app.set('port', process.env.PORT || 3000);
 
 const __dirname = path.resolve();
 
-const indexRouter = (addr) => {
-  app.get(addr, (req, res) => {
-    res.sendFile(path.join(__dirname, addr));
-  });
-}
-
+// const indexRouter = (addr) => {
+//   app.get(addr, (req, res) => {
+//     res.sendFile(path.join(__dirname, addr));
+//   });
+// }
 // //index
 // indexRouter('/source/img/bg_dpimg.png');
 // indexRouter('/source/vod/tekken8.mp4');
@@ -88,9 +87,13 @@ app.get('/board', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/board/board.html'));
 });
 
-app.get('/generalForum', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/views/board/generalForum.html'));
+app.get('/textContent', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/board/textContent.html'));
 });
+
+// app.get('/generalForum', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/public/views/board/generalForum.html'));
+// });
 
 app.get('/logIn', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/logIn/login.html'));
@@ -100,11 +103,11 @@ app.get('/movieInfo', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/movieInfo/movieInfor.html'));
 });
 
-app.get('/myBoardInfo', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboard.html'));
-});
+// app.get('/myBoardInfo', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboard.html'));
+// });
 
-app.get('/myBoardHead', (req, res) => {
+app.get('/boardHead', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboardHead.html'));
 });
 
@@ -114,6 +117,10 @@ app.get('/signInPage', (req, res) => {
 
 app.get('/slider', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/slider/moveSlide.html'));
+});
+
+app.get('/randomMovie', (req, res) => { 
+  res.sendFile(path.join(__dirname, '/public/views/randomMovie/randomMovie.html'));
 });
 
 

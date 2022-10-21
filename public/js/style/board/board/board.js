@@ -1,24 +1,51 @@
 let root = document.body.children[0];
-
+console.dir(root);
 let tableheade = [];
 let boardhead = ["NO", "글제목", "작성자", "날짜"];
-let boardbody = ["NO1", "출퇴근 없는 삶", "", "이아연", "20221004"];
+let boardbody = ["NO1", "출퇴근 없는 삶", "이아연", "20221004"];
 
 for (let i = 0; i < 1; i++) {
   tableheade.push(`<thead>`);
   for (let l = 0; l < boardhead.length; l++) {
     tableheade.push(`<td>${boardhead[l]}</td>`);
   }
-
   tableheade.push(`</thead>`);
 }
 
 for (let i = 0; i < 5; i++) {
   tableheade.push(`<tr>`);
-  for (let i = 0; i < boardhead.length; i++) {
-    tableheade.push(`<td>${boardbody[i]}</td>`);
+  for (let e = 0; e < boardbody.length; e++) {    
+    if (e === 1) {
+      tableheade.push(`<td class = intoTheContext>${boardbody[e]}</td>`);
+    } else {
+      tableheade.push(`<td>${boardbody[e]}</td>`);
+    }
   }
   tableheade.push(`</tr>`);
+}
+
+const intoTheContext = document.getElementsByClassName('intoTheContext');
+console.dir(intoTheContext);
+console.log(typeof intoTheContext);
+console.log(Array.isArray(intoTheContext));
+
+//console.dir(intoTheContext(0));
+
+// intoTheContext.addEventListener('click', (event) => { 
+//   //console.log('a');
+//   //location.href = '/textContent';
+// });
+// intoTheContext[0].addEventListener('click', (event) => { 
+//   location.href = '/textContent';
+// });
+console.dir(intoTheContext);
+for (let i = 0; i < intoTheContext.length; i++) {
+  const target = intoTheContext[i];
+  //console.log(target);
+  target.addEventListener('click', (event) => { 
+    //console.log('a');
+    location.href = '/textContent';
+  });
 }
 
 tableheade.unshift(`<table>`);

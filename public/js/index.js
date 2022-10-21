@@ -26,10 +26,24 @@ styleMaker.tagMaker(menuDiv, menuDivChildren, "");
 
 const searchDiv = menuDiv.children[0];
 searchDiv.textContent = "검색";
+searchDiv.style.cursor = "pointer";
+searchDiv.addEventListener('click', (event) => {
+  location.href = '/searchMovie';
+});
 const signDiv = menuDiv.children[1];
+signDiv.style.cursor = "pointer";
 signDiv.textContent = "로그인";
+
+signDiv.addEventListener('click', (event) => {
+  location.href = '/logIn';
+});
+
 const boardDiv = menuDiv.children[2];
 boardDiv.textContent = "게시판";
+boardDiv.style.cursor = "pointer";
+boardDiv.addEventListener('click', (event) => {
+  location.href = '/board';
+});
 
 const mainChildren = ["div", "section"];
 styleMaker.tagMaker(main, mainChildren);
@@ -40,10 +54,26 @@ const section = main.children[1];
 styleMaker.ranBtnMaker(randomDiv);
 styleMaker.singleCssMulipleStyling(randomDiv.children, indexCss.randomDivCss);
 
+for (let i = 0; i < randomDiv.children.length; i++) {
+  const target = randomDiv.children[i];
+  console.log(target);
+  target.addEventListener('click', (event) => {
+    popup('/randomMovie', '랜덤 영화 추천!', 730, 820, 100, 200, 'no');
+    //location.href = '/randomMovie';
+  });
+}
+
+function popup(url, name, width, height, top, left, location){    
+  const option = `width = ${width}, height = ${height}, top = ${top}, left = ${left}, location = ${location}`;
+  window.open(url, name, option);
+  // 500 500 100 200 no
+}
+
+
+
 
 const sectionChidren = ["div", "div"];
 styleMaker.tagMaker(section, sectionChidren);
-
 
 const explDiv = section.children[0];
 explDiv.id = "explDiv";
@@ -76,4 +106,4 @@ arrTag.push(explDiv);
 arrTag.push(vodDiv);
 arrTag.push(footer);
 
-styleMaker.styling(arrTag, indexCss.indexCss); 
+styleMaker.styling(arrTag, indexCss.indexCss);
