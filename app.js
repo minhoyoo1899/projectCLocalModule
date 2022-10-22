@@ -15,8 +15,6 @@ const dbconfig = {
   database: 'inthem'
 }
 
-//console.log(dbconfig);
-
 const connection = mysql.createConnection(dbconfig);
 
 
@@ -92,6 +90,14 @@ app.get('/randomMovie', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/randomMovie/randomMovie.html'));
 });
 
+app.get('/dbtest', (req, res) => {
+  connection.query('SELECT * FROM director', (error, rows) => {
+    if (error) throw error;
+    console.log(`data : ${rows}`);    
+    res.send(rows);
+  });
+}); 
+
 app.get('/dbPage', (req, res) => { 
   connection.query('SELECT * FROM director', (error, rows) => {
     if (error) throw error;
@@ -121,14 +127,6 @@ app.get('/dbPage', (req, res) => {
     console.dir(rows[0].DIRECTOR_SEQ);
     //console.dir(typeof rows);
     //console.dir(Array.isArray(rows));
-  });
-});
-
-app.get('/dbtest', (req, res) => {
-  connection.query('SELECT * FROM director', (error, rows) => {
-    if (error) throw error;
-    console.log(`data : ${rows}`);    
-    res.send(rows);
   });
 });
 
