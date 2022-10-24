@@ -39,4 +39,10 @@ let button = fieldset.children[4];
 
 button.innerText = "로그인";
 
-textdiv.innerHTML = `<div>아이디찾기/비밀번호 찾기</div> <div>회원가입</div>`;
+textdiv.innerHTML = `<div>아이디찾기/비밀번호 찾기</div> <div id = 'signUp'>회원가입</div>`;
+
+const signUp = document.getElementById('signUp');
+
+signUp.addEventListener('click', (event) => {
+  location.href = '/signInPage';
+});

@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import mysql from 'mysql';
 import request from 'request';
+import { readFileSync } from 'fs';
+import { readFile } from 'fs';
 
 //import dbconfig from './build/db.js'
 
@@ -10,13 +12,12 @@ import request from 'request';
 const dbconfig = {
   host: 'localhost',
   user: 'root',
-  password: '1234',
-  port:'3306',
-  database: 'inthem'
+  password: 'TheoHernandez19!',
+  port:'8282',
+  database: 'in_the_m'
 }
 
 const connection = mysql.createConnection(dbconfig);
-
 
 //const express = require('express');
 
@@ -42,13 +43,18 @@ app.get('/adminPage', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/admin/adminiPage.html'));
 });
 
+app.get('/myInfo', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myInfo.html'));
+});
+
 app.get('/myFavoMov', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/clientInfo/myFavoMov.html'));
 });
 
-app.get('/myInfo', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myInfo.html'));
+app.get('/myBoard', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboard.html'));
 });
+
 
 app.get('/writeFrame', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/board/writeForum.html'));
@@ -56,6 +62,10 @@ app.get('/writeFrame', (req, res) => {
 
 app.get('/searchMovie', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/search/movieList.html'));
+});
+
+app.get('/boardHead', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboardHead.html'));
 });
 
 app.get('/board', (req, res) => {
@@ -74,9 +84,7 @@ app.get('/movieInfo', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/movieInfo/movieInfor.html'));
 });
 
-app.get('/boardHead', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/views/clientInfo/myBoard/myboardHead.html'));
-});
+
 
 app.get('/signInPage', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/signInPage/signInPage.html'));
@@ -86,17 +94,50 @@ app.get('/slider', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/slider/moveSlide.html'));
 });
 
-app.get('/randomMovie', (req, res) => { 
+app.get('/randomMovie', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/randomMovie/randomMovie.html'));
 });
+
+
+app.get('/apiDB', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build/apiDB.html'));
+});
+
+
+
 
 app.get('/dbtest', (req, res) => {
   connection.query('SELECT * FROM director', (error, rows) => {
     if (error) throw error;
-    console.log(`data : ${rows}`);    
+    console.log(`data : ${rows}`);
     res.send(rows);
   });
-}); 
+});
+
+app.get("/dbtest3", (req, res) => {
+  connection.query("SELECT * FROM director", (error, rows) => {
+    if (error) throw error;
+    console.log(`data : ${rows}`);    
+    res.send(res.sendFile(path.join(__dirname, '/build/apiDB.html')), JSON.stringify(rows));
+    
+  });
+});
+
+
+
+// app.get('/dbtest2', (req, res) => { 
+//   connection.query('SELECT * FROM director', (error, rows) => {
+//     if (error) throw error;
+//     console.log(`data : ${rows}`);
+//     const html = readFileSync(__dirname + '/build/apiDB.html');
+//     res.json({html: html.toString(), data: rows});
+//   });
+// });
+
+
+
+
+
 
 app.get('/dbPage', (req, res) => { 
   connection.query('SELECT * FROM director', (error, rows) => {
@@ -145,7 +186,7 @@ app.get('/api', (req, res) => {
     }
   }
 
-  request(options, function (error, response) {
+  request(options, (error, response) => {
     if (error) throw new Error(error);
     console.log(response.body);
     res.send(`
@@ -155,14 +196,14 @@ app.get('/api', (req, res) => {
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>In-The-M-ovie- Express!</title>    
+      <title>In-The-M-ovie - Express!</title>
     </head>
     <body>
         <div id="app">
          api : ${response.body}
         </div>        
     </body>
-    </html>`);  
+    </html>`);
   });
 });
 

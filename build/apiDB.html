@@ -11,7 +11,14 @@
   <script>
     const app = document.getElementById('app');
 
-    console.log(rows);
+    app.innerHTML = `<button id='btn'> 테스트 버튼 </button>`;
+
+    const btn = document.getElementById('btn');
+
+    btn.addEventListener('click', (event)=> {
+      //location.href = '/dbtest2';
+    }); 
+    
   </script>
 </body>
 </html>

@@ -31,10 +31,10 @@ const styleMaker = {
     }
   },
 
-  ranBtnMaker: (tag) => {
+  ranBtnMaker: (tag, genreName) => {
     const tagArr = [];
-    for (let i = 0; i < 10; i++) {
-      tagArr.push(`<div id="genre-${i + 1}" dataset-randomgenre=${i+1} > <div> 장르 </div> </div>`);
+    for (let i = 0; i < genreName.length; i++) {
+      tagArr.push(`<div id="genre-${i + 1}" dataset-randomgenre=${i+1} > <div> ${genreName[i]} </div> </div>`);
     }
     tag.innerHTML = tagArr.join("");
   },

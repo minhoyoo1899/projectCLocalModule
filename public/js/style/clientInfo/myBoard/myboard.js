@@ -1,4 +1,36 @@
+import styleMaker from "../styleMaker.js";
+
 let root = document.body.children[0];
+
+const aside = document.createElement("aside");
+root.appendChild(aside);
+const main = document.createElement("main");
+root.appendChild(main);
+// ------------------------app > aside --------------------------------
+
+
+aside.innerHTML = `
+  ${styleMaker.elememt("div")}
+  ${styleMaker.elememt('div')}
+  `;
+  // ------------------app > aside > div*2 -------------------------------
+
+  const div1 = document.querySelector("#root>aside>div:nth-child(1)");
+  const div2 = document.querySelector("#root>aside>div:nth-child(2)");
+
+
+styleMaker.tagMaker(div1, "div", "p", "", 0);
+// -----------------------app > aside > div1 > div ----------------------------
+styleMaker.tagMaker(div1, "div", "p", "닉네임", 1 );
+// --------------------------app > aside > div1 > div > p ----------------------
+
+styleMaker.tagMaker(div2, "div", "p", "내 정보 수정", 1);
+styleMaker.tagMaker(div2, "div", "p", "내가 찜한 영화", 1);
+styleMaker.tagMaker(div2, "div", "p", "내가 쓴 글", 1);
+// -------------------------app > aside > div2 > (div > p) *3--------------------
+
+
+
 
 let tableheade = [];
 let boardhead = ["NO", "글제목", "작성자", "날짜"];
@@ -15,17 +47,42 @@ for (let i = 0; i < 1; i++) {
 
 for (let i = 0; i < 5; i++) {
   tableheade.push(`<tr>`);
-  for (let i = 0; i < boardhead.length; i++) {
-    tableheade.push(`<td>${boardbody[i]}</td>`);
+  for (let e = 0; e < boardbody.length; e++) {    
+    if (e === 1) {
+      tableheade.push(`<td class = intoTheContext>${boardbody[e]}</td>`);
+    } else {
+      tableheade.push(`<td>${boardbody[e]}</td>`);
+    }
   }
   tableheade.push(`</tr>`);
 }
 
+const intoTheContext = document.getElementsByClassName('intoTheContext');
+console.dir(intoTheContext);
+console.log(typeof intoTheContext);
+console.log(Array.isArray(intoTheContext));
+
+
+
 tableheade.unshift(`<table>`);
 tableheade.push(`</table>`);
-root.innerHTML = tableheade.join("");
+main.innerHTML = tableheade.join("");
 
-let table = root.children[0];
+
+
+console.dir(intoTheContext);
+for (let i = 0; i < intoTheContext.length; i++) {
+  const target = intoTheContext[i];
+  //console.log(target);
+  target.addEventListener('click', (event) => { 
+    //console.log('a');
+    location.href = '/textContent';
+  });
+}
+
+
+
+let table = main.children[0];
 console.dir(table);
 table.style.border = "solid 2px black";
 table.style.width = " 1000px";

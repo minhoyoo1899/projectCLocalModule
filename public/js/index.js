@@ -21,7 +21,7 @@ bg_img.src = "./source/img/bg_dpimg.png";
 
 styleMaker.tagMaker(header, "div", "");
 const menuDiv = header.children[0];
-const menuDivChildren = ["div", "div", "div"];
+const menuDivChildren = ["div", "div", "div", "div", "div"];
 styleMaker.tagMaker(menuDiv, menuDivChildren, "");
 
 const searchDiv = menuDiv.children[0];
@@ -38,7 +38,20 @@ signDiv.addEventListener('click', (event) => {
   location.href = '/logIn';
 });
 
-const boardDiv = menuDiv.children[2];
+const signOutDiv = menuDiv.children[2];
+signOutDiv.style.cursor = "pointer";
+signOutDiv.textContent = "로그아웃";
+
+const myInfoDiv = menuDiv.children[3];
+myInfoDiv.style.cursor = "pointer";
+myInfoDiv.textContent = "마이페이지";
+
+myInfoDiv.addEventListener('click', (event) => {
+  location.href = '/myInfo';
+});
+
+
+const boardDiv = menuDiv.children[4];
 boardDiv.textContent = "게시판";
 boardDiv.style.cursor = "pointer";
 boardDiv.addEventListener('click', (event) => {
@@ -51,7 +64,9 @@ styleMaker.tagMaker(main, mainChildren);
 const randomDiv = main.children[0];
 const section = main.children[1];
 
-styleMaker.ranBtnMaker(randomDiv);
+const genreArr = ['코믹', '공포', '액션', '어드벤처', '로맨스', '드라마', 'SF', '범죄/느와르'];
+
+styleMaker.ranBtnMaker(randomDiv, genreArr);
 styleMaker.singleCssMulipleStyling(randomDiv.children, indexCss.randomDivCss);
 
 for (let i = 0; i < randomDiv.children.length; i++) {
@@ -70,7 +85,7 @@ function popup(url, name, width, height, top, left, location){
 }
 
 
-
+ 
 
 const sectionChidren = ["div", "div"];
 styleMaker.tagMaker(section, sectionChidren);

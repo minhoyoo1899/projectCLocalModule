@@ -57,4 +57,9 @@
 }
 #app > form > div:nth-child(8) {
   margin-bottom: 1rem;
-}/*# sourceMappingURL=singInPage.css.map */
+}
+
+#signUp:hover {
+  cursor: pointer;
+  font-weight: bold;
+}/*# sourceMappingURL=signInPage.css.map */
