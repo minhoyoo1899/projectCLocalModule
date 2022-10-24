@@ -2,8 +2,8 @@ import express from 'express';
 import path from 'path';
 import mysql from 'mysql';
 import request from 'request';
-import { readFileSync } from 'fs';
-import { readFile } from 'fs';
+import fs from 'fs';
+
 
 //import dbconfig from './build/db.js'
 
@@ -117,9 +117,21 @@ app.get('/dbtest', (req, res) => {
 app.get("/dbtest3", (req, res) => {
   connection.query("SELECT * FROM director", (error, rows) => {
     if (error) throw error;
-    console.log(`data : ${rows}`);    
-    res.send(res.sendFile(path.join(__dirname, '/build/apiDB.html')), JSON.stringify(rows));
-    
+    console.log(`data : ${rows}`);
+    //res.send(rows);
+    fs.readFile("./public/index.html", "utf-8", (err, data) => {
+      for (let i = 0; i < data.length; i++) {
+        console.log(`data[${i}] : ${data[i]}`);        
+        // i = 417, 418사이가 root태그 안
+      }
+      const front = data.slice(0, 417);
+      const back = data.slice(418, data.length - 1);
+      const total = [rows[0].DIRECTOR_NAME];
+      total.unshift(front);
+      total.push(back);
+      console.log(total);
+      res.send(`${total}`);
+    });
   });
 });
 
