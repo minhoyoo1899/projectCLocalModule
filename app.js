@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import mysql from 'mysql';
 import request from 'request';
-import fs from 'fs';
+import * as fs from 'fs';
 
 
 //import dbconfig from './build/db.js'
@@ -84,8 +84,6 @@ app.get('/movieInfo', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/movieInfo/movieInfor.html'));
 });
 
-
-
 app.get('/signInPage', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/signInPage/signInPage.html'));
 });
@@ -98,13 +96,21 @@ app.get('/randomMovie', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/randomMovie/randomMovie.html'));
 });
 
-
-app.get('/apiDB', (req, res) => {
-  res.sendFile(path.join(__dirname, '/build/apiDB.html'));
+app.get('/noticeBoard', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/views/board/noticeBoard/noticeBoard.html'));
 });
 
 
 
+
+
+
+
+
+
+app.get('/apiDB', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build/apiDB.html'));
+});
 
 app.get('/dbtest', (req, res) => {
   connection.query('SELECT * FROM director', (error, rows) => {
@@ -119,11 +125,12 @@ app.get("/dbtest3", (req, res) => {
     if (error) throw error;
     console.log(`data : ${rows}`);
     //res.send(rows);
-    fs.readFile("./public/index.html", "utf-8", (err, data) => {
+    fs.readFile("./build/dbhtml.html", "utf-8", (err, data) => {
       for (let i = 0; i < data.length; i++) {
         console.log(`data[${i}] : ${data[i]}`);        
         // i = 417, 418사이가 root태그 안
       }
+
       const front = data.slice(0, 417);
       const back = data.slice(418, data.length - 1);
       const total = [rows[0].DIRECTOR_NAME];
@@ -131,6 +138,21 @@ app.get("/dbtest3", (req, res) => {
       total.push(back);
       console.log(total);
       res.send(`${total}`);
+    });
+  });
+});
+
+
+app.get("/dbtest4", (req, res) => {
+  connection.query("SELECT * FROM director", (error, rows) => {
+    if (error) throw error;
+    console.log(`data : ${rows}`);
+    //res.send(rows);
+    fs.readFile("./build/dbhtml.html", "utf-8", (err, data) => {
+      if (err) throw err;
+      console.log(data);
+      const temp = data.replace('<ymh>', rows[0].DIRECTOR_NAME);
+      res.send(temp);
     });
   });
 });
@@ -161,7 +183,7 @@ app.get('/dbPage', (req, res) => {
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>In-The-M-ovie- Express!</title>    
+      <title>In-The-M-ovie- Express!</title>
     </head>
     <body>
         <div id="app">

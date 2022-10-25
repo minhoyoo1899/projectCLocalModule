@@ -37,8 +37,7 @@ for (let i = 0; i < div2.children.length; i++) {
         break;
       case 1:
         location.href = '/myFavoMov';
-        break;
-      
+        break;      
       case 2:
         location.href = '/myBoard';
         break;

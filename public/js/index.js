@@ -108,8 +108,6 @@ mainVod.style.width = "100%";
 
 vodExpl(mainVod, explDiv, 'mouseover', 'flex', 'mouseout', 'none');
 
-footer.textContent = "여기는 푸터";
-
 arrTag.push(indexDiv);
 arrTag.push(bg_img);
 arrTag.push(header);
@@ -122,3 +120,36 @@ arrTag.push(vodDiv);
 arrTag.push(footer);
 
 styleMaker.styling(arrTag, indexCss.indexCss);
+
+
+//footer.style.display = "flex";
+//footer.style.height = "30vh";
+
+
+
+
+styleMaker.tagMaker(footer, "div", "");
+const footerDiv = footer.children[0];
+const footerDivChildren = ["div", "div", "div"];
+styleMaker.tagMaker(footerDiv, footerDivChildren, "");
+const footerDivChildren1 = footerDiv.children[0];
+footerDivChildren1.innerHTML = "사업자번호 : 123-45-678910  대표: 이아연";
+const footerDivChildren2 = footerDiv.children[1];
+footerDivChildren2.innerHTML = "(12345) 대전광역시 서구 대덕로 182, 오라클빌딩 3층";
+const footerDivChildren3 = footerDiv.children[2];
+footerDivChildren3.innerHTML = "전화 : 010-159-7598  팩스 : 042-4562-1456  이메일 : support@google.com" 
+// footer 내용 추가
+
+footerDiv.style.width = "auto";
+footerDiv.style.height = "300px";
+footerDiv.style.display = "flex";
+footerDiv.style.flexDirection = "column";
+footerDiv.style.alignContent = "center";
+footerDiv.style.justifyContent = "space-around";
+
+// footerDivChildren1.style.width = "70%";
+footerDivChildren1.style.height = "auto";
+// footerDivChildren2.style.width = "70%";
+footerDivChildren2.style.height = "auto";
+// footerDivChildren3.style.width = "70%";
+footerDivChildren3.style.height = "auto";
