@@ -5,8 +5,9 @@ export default function createForm(){
   const form = document.createElement('form');
   form.setAttribute("id", "form");
   form.setAttribute("charset", "UTF-8");
-  form.setAttribute("method", "post");
-  form.setAttribute("onsubmit", "return false");
+  form.setAttribute("method", "POST");
+  form.setAttribute("enctype", "multipart/form-data");  
+  //form.setAttribute("onsubmit", "return false");
   // form.setAttribute("action", "./generalForum.html");
   app.appendChild(form);
   // form태그 만듬. 

@@ -19,6 +19,10 @@ const dbconfig = {
 
 const connection = mysql.createConnection(dbconfig);
 
+//app.use(express.json());
+
+//app.use(bodyParser.json);
+
 //const express = require('express');
 
 //console.log(path);
@@ -211,7 +215,6 @@ app.get('/api', (req, res) => {
   const genre = "로맨스";
   const startDate = 20220222;
   const kmdb_url = `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=7204O8KH4D5547Q3JBB7&detail =Y&genre=${encodeURI(genre)}&releaseDts=20221009&listCount=50`;
-
   const options = {
     method: 'GET',
     url: kmdb_url,
@@ -241,6 +244,35 @@ app.get('/api', (req, res) => {
   });
 });
 
+
+
+
+app.get('/writeText', (req, res) => { 
+  //const today = new Date();
+
+  console.log(req);
+  console.log(req.client);
+
+
+  // const title = req.body.form.title;
+  // const writer = req.body.writer;
+  // const context = req.body.context;
+
+  // console.log(title);
+  // console.log(writer);
+  // console.log(context);
+
+  res.redirect('/writeFrame');
+
+  //const sql = `INSERT INTO board (title, writer, context, date) VALUES(${title}, ${writer}, ${context}, now())`;
+  // connection.query(sql, (err, result, field) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.status(500).send('Internal Server Error');
+  //   }
+  //   res.redirect('/board');
+  // });
+});
 
 app.listen(app.get('port'), () => { 
   console.log(app.get('port'), '번 포트에서 대기 중');
