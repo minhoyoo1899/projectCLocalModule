@@ -26,6 +26,7 @@ const connection = mysql.createConnection(dbconfig);
 //const express = require('express');
 
 //console.log(path);
+
 const app = express();
 app.set('port', process.env.PORT || 3000);
 
@@ -33,6 +34,9 @@ const __dirname = path.resolve();
 
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/source', express.static(__dirname + '/source'));
+
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));
 
 app.get('/', (req, res) => { 
   //res.send('Hello, Express');
@@ -161,8 +165,6 @@ app.get("/dbtest4", (req, res) => {
   });
 });
 
-
-
 // app.get('/dbtest2', (req, res) => { 
 //   connection.query('SELECT * FROM director', (error, rows) => {
 //     if (error) throw error;
@@ -171,10 +173,6 @@ app.get("/dbtest4", (req, res) => {
 //     res.json({html: html.toString(), data: rows});
 //   });
 // });
-
-
-
-
 
 
 app.get('/dbPage', (req, res) => { 
@@ -196,7 +194,7 @@ app.get('/dbPage', (req, res) => {
          rows[0].DIRECTOR_SEQ :  ${rows[0].DIRECTOR_SEQ} <br/>
          rows[0].DIRECTOR_NAME : ${rows[0].DIRECTOR_NAME} <br/>
          rows[0].DIRECTOR_CODE : ${rows[0].DIRECTOR_CODE} <br/>
-        </div>        
+        </div>
     </body>
     </html>`);
     //console.log(`data : ${rows}`);
@@ -244,34 +242,46 @@ app.get('/api', (req, res) => {
   });
 });
 
+app.post('/writeText', (req, res) => { 
 
+  // if (!req.body.name) {
+  //   return res.status(400).json({
+  //     status: 'error',
+  //     error: 'req body cannot be empty',
+  //   });
+  // }
 
-
-app.get('/writeText', (req, res) => { 
+  // res.status(200).json({
+  //   status: 'succes',
+  //   data: req.body,
+  // })
   //const today = new Date();
 
-  console.log(req);
-  console.log(req.client);
+  //console.log(req);
+  console.log(req.body);
+  console.log(req.body.forum_title);
+  console.log(req.body.ueser_name);
+  console.log(req.body.user_message);
+  
 
 
-  // const title = req.body.form.title;
-  // const writer = req.body.writer;
-  // const context = req.body.context;
+  const title = req.body.forum_title;
+  const writer = req.body.ueser_name;
+  const context = req.body.user_message;
 
   // console.log(title);
   // console.log(writer);
-  // console.log(context);
-
+  // console.log(context);  
+  //INSERT INTO `in_the_m`.`board_` (`BOARD_TITLE`, `BOARD_CONTEXT`, `USER_NAME`) VALUES ('adasd', 'asdasd', 'asdasd');
+  const sql = "INSERT INTO `board_` (`BOARD_TITLE`, `BOARD_CONTEXT`, `USER_NAME`) VALUES ('"+title+"', '"+writer+"', '"+context+"')";
+  // const sql = `INSERT INTO 'board_' ('BOARD_TITLE', 'BOARD_CONTEXT', 'USER_NAME') VALUES(${title}, ${context}, ${writer})`;
+  connection.query(sql, (err, result, field) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
   res.redirect('/writeFrame');
-
-  //const sql = `INSERT INTO board (title, writer, context, date) VALUES(${title}, ${writer}, ${context}, now())`;
-  // connection.query(sql, (err, result, field) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(500).send('Internal Server Error');
-  //   }
-  //   res.redirect('/board');
-  // });
 });
 
 app.listen(app.get('port'), () => { 

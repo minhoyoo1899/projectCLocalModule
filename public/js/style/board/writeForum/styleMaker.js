@@ -6,7 +6,7 @@ export default function createForm(){
   form.setAttribute("id", "form");
   form.setAttribute("charset", "UTF-8");
   form.setAttribute("method", "POST");
-  form.setAttribute("enctype", "multipart/form-data");  
+  form.setAttribute("enctype", "x-www-form-urlencoded");  
   //form.setAttribute("onsubmit", "return false");
   // form.setAttribute("action", "./generalForum.html");
   app.appendChild(form);
