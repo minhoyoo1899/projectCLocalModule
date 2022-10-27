@@ -285,7 +285,7 @@ app.post('/writeText', (req, res) => {
   const writer = req.body.ueser_name;
   const context = req.body.user_message;
   
-  const sql = "INSERT INTO `board_` (`BOARD_TITLE`, `BOARD_CONTEXT`, `USER_NAME`) VALUES ('"+title+"', '"+writer+"', '"+context+"')";
+  const sql = "INSERT INTO `board_` (`BOARD_TITLE`,`BOARD_CONTEXT`,`USER_NAME`) VALUES ('"+title+"','"+writer+"','"+context+"')";
   
   connection.query(sql, (err, result, field) => {
     if (err) {

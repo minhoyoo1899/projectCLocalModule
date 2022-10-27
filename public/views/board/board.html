@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/public/css/board/board/board.css" defer />
+    <link rel="stylesheet" href="/public/css/board/board/board.css" defer />    
   </head>
   <body>
     <section class="notice">
@@ -80,10 +80,32 @@
                 <td>ㅁㅁㅁ</td>
                 <td>2017.06.15</td>
               </tr>
-            </tbody>
+            </tbody>            
           </table>
         </div>
-      </div>
+      </div>      
     </section>
+    <div id="clickDiv"><button id="writeBtn">글쓰기</button></div>
+    <script>
+      const clickDiv = document.getElementById('clickDiv');
+      const writeBtn = document.getElementById('writeBtn');
+
+      clickDiv.style.width = "100vw";
+      clickDiv.style.height = "10vh";
+      clickDiv.style.display = "flex";
+      clickDiv.style.flexDirection = "row";
+      clickDiv.style.flexWrap = "nowrap";
+      clickDiv.style.alignContent = "center";
+      clickDiv.style.justifyContent= "center";
+      clickDiv.style.alignItems = "center";
+
+      writeBtn.style.width = "10vw";
+      writeBtn.style.fontSize = "3rem";
+
+
+      writeBtn.addEventListener('click', (event)=> {
+        location.href = "/writeFrame";
+      });
+    </script>
   </body>
 </html>
