@@ -42,4 +42,3 @@ listButton.addEventListener('click', (event) => {
 //   form.submit();
 //   // submit() 은 서버에 양식 제출하는 form 메서드
 // })
-

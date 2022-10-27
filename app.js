@@ -19,14 +19,6 @@ const dbconfig = {
 
 const connection = mysql.createConnection(dbconfig);
 
-//app.use(express.json());
-
-//app.use(bodyParser.json);
-
-//const express = require('express');
-
-//console.log(path);
-
 const app = express();
 app.set('port', process.env.PORT || 3000);
 
@@ -235,7 +227,7 @@ app.get('/api', (req, res) => {
     </head>
     <body>
         <div id="app">
-         api : ${response.body}
+          api : ${response.body}
         </div>        
     </body>
     </html>`);
@@ -284,6 +276,6 @@ app.post('/writeText', (req, res) => {
   res.redirect('/writeFrame');
 });
 
-app.listen(app.get('port'), () => { 
+app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });

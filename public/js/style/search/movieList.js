@@ -95,8 +95,6 @@ function popup(url, name, width, height, top, left, location){
   // 500 500 100 200 no
 }
 
-
-
 styleMaker.tagMaker(footer, "div", "");
 const footerDiv = footer.children[0];
 const footerDivChildren = ["div", "div", "div"];
@@ -122,3 +120,93 @@ footerDivChildren1.style.height = "auto";
 footerDivChildren2.style.height = "auto";
 // footerDivChildren3.style.width = "70%";
 footerDivChildren3.style.height = "auto";
+
+
+// API
+// ======================================================================================================
+const backdropDivArr = [];
+//console.log(main);
+//console.log(main.children);
+// console.log(main.children[0]);
+// console.log(main.children[0].children[0]);
+
+for (let i = 0; i < main.children.length; i++) {
+  const target = main.children[i];
+  //console.log(target);
+  for (let ii = 0; ii < target.children.length; ii++) {
+    //console.log(target.children[ii]);
+    backdropDivArr.push(target.children[ii]);
+  }
+}
+
+
+const apiKey = "c4fc9ca86ccc89b226126b6beccd9731";
+const id = 550;
+const movie_id = "tt0137523"; // 파이트 클럽 둘중 아무거나 싸도 다 됨
+
+const para_id = 496243;
+
+const posterSize = 'w500'; //w92 w154, w185, w342, w500, w780, original
+const posterSizew500 = 'w500';
+const posterSizeOri = 'original';
+
+const lanKo = 'ko'
+const lanEn = 'en-US';
+
+const query = 'avengers'; // 원하는 영화 검색
+
+const boxOfficeArr = ['범죄도시 2', '탑건: 매버릭', '한산: 용의 출현', '공조2: 인터내셔날', '닥터 스트레인지 2', '헌트', '쥬라기 월드: 도미니언	', '마녀 2', '토르: 러브 앤 썬더', '미니언즈2', '비상선언', '스파이더맨: 노 웨이 홈', '육사오(6/45)	', '헤어질 결심', '외계+인 1부'];
+const movieCodeArr = [619803, 361743]
+/*
+https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query='한산: 용의 출현'
+*/
+
+const tmdbInfo = (query, arr) => {  
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query=${query}`;
+    const request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.responseType = "json";
+    request.send();
+    request.addEventListener("load", () => {
+      const apiDat = request.response;
+      console.log(apiDat);
+      console.log(apiDat.results[0]);
+      console.log(apiDat.results[0].backdrop_path);
+      for (let i = 0; i < backdropDivArr.length; i++) {
+        backdropDivArr[i].style.backgroundImage = `https://image.tmdb.org/t/p/original/${apiDat.backdrop_path}`;
+        backdropDivArr[i].style.backgroundSize = 'cover';
+      }
+    });  
+}
+
+tmdbInfo("범죄도시 2");
+
+
+
+
+
+function tmdb(apiKey, id, posterSize, posterSizew500) {
+  //기본영화 정보      
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
+  const request = new XMLHttpRequest();
+  request.open("GET", url);
+  request.responseType = "json";
+  request.send();
+  request.addEventListener("load", () => {
+    const apiDat = request.response;
+    console.log(`TMDB`);
+    console.log(apiDat);
+    console.log(apiDat.backdrop_path);
+    console.log(apiDat.poster_path);
+
+    // const imgPoster = `https://image.tmdb.org/t/p/${posterSize}/${apiDat.poster_path}`;
+    // const posterurl = `https://www.themoviedb.org/t/p/${posterSize}/voddFVdjUoAtfoZZp2RUmuZILDI.jpg`;
+    // const imgUrl = `https://image.tmdb.org/t/p/${posterSizew500}/${apiDat.backdrop_path}`;
+
+
+    // root.innerHTML = `<img src="${imgUrl}" /> <img src="${imgPoster}" /> <img src="${posterurl}" /> <div></div> <div></div> <div></div>`;
+
+  });
+}
+
+//tmdb(apiKey, id, posterSize, posterSizew500);

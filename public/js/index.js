@@ -99,7 +99,7 @@ styleMaker.tagMaker(vodDiv, "video");
 vodDiv.style.width = "88%";
 
 const mainVod = vodDiv.children[0];
-mainVod.src = "./source/vod/tekken8.mp4";
+mainVod.src = "./source/vod/Gongjo2.mp4";
 mainVod.autoplay = true;
 mainVod.controls = true;
 mainVod.loop = true;

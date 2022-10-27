@@ -28,7 +28,7 @@
 #root > aside > div:nth-child(1) > div:nth-child(1) {
   width: 100px;
   height: 100px;
-  background-image: url('../../../source/img/my_info_profile.png');
+  background-image: url('../../../source/img/client_info_icon.png');
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -72,7 +72,8 @@
 }
 
 #root > main {
-  width: 100%;
+  width: 80vw;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
