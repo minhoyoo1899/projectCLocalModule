@@ -4,11 +4,6 @@ import mysql from 'mysql';
 import request from 'request';
 import * as fs from 'fs';
 
-
-//import dbconfig from './build/db.js'
-
-//const dbconfig = require('./build/db.js');
-
 const dbconfig = {
   host: 'localhost',
   user: 'root',
@@ -130,16 +125,17 @@ app.get('/movieParam', (req, res) => {
   <div id="root">
     <div class="maindiv">      
       <div class="section">
-        <div class="poster"></div>
+        <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original${req.query.poster}" style="width: 100%;"/>
+        </div>
         <div class="informa"><span> </span>
           <div>${req.query.title}</div> <span>평점 </span>
           <div>⭐⭐⭐⭐⭐${req.query.rate}</div> <span>개요 </span>
-          <div>액션/범죄| ${nation}|129분 |2022.09.07 개봉</div> <span>감독</span>
+          <div>액션/범죄| ${nation}|129분 |${req.query.date} 개봉</div> <span>감독</span>
           <div>이석훈</div> <span>등급</span>
           <div>[국내]15세 관람가</div> <span>출연</span>
           <div>현빈</div> <span> </span>
-          <div>경찰 내 최고 엘리트 조직 내 사과 소속영위 조직에서 유일하게 믿고따르는 윤과장과 함께 f1 레이서 출신의 사업가 정재철을 잡기위해 수사망을 조여가던 시연은 무리한 강압수사를 벌였다는
-            오명을 쓰고 뺑소니 전담반으로 좌천된다 </div>
+          <div>${req.query.text} </div>
         </div>
       </div>
       <div class="like"><button>찜하기💗</button></div>
@@ -285,38 +281,12 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/writeText', (req, res) => { 
-
-  // if (!req.body.name) {
-  //   return res.status(400).json({
-  //     status: 'error',
-  //     error: 'req body cannot be empty',
-  //   });
-  // }
-
-  // res.status(200).json({
-  //   status: 'succes',
-  //   data: req.body,
-  // })
-  //const today = new Date();
-
-  //console.log(req);
-  console.log(req.body);
-  console.log(req.body.forum_title);
-  console.log(req.body.ueser_name);
-  console.log(req.body.user_message);
-  
-
-
   const title = req.body.forum_title;
   const writer = req.body.ueser_name;
   const context = req.body.user_message;
-
-  // console.log(title);
-  // console.log(writer);
-  // console.log(context);  
-  //INSERT INTO `in_the_m`.`board_` (`BOARD_TITLE`, `BOARD_CONTEXT`, `USER_NAME`) VALUES ('adasd', 'asdasd', 'asdasd');
+  
   const sql = "INSERT INTO `board_` (`BOARD_TITLE`, `BOARD_CONTEXT`, `USER_NAME`) VALUES ('"+title+"', '"+writer+"', '"+context+"')";
-  // const sql = `INSERT INTO 'board_' ('BOARD_TITLE', 'BOARD_CONTEXT', 'USER_NAME') VALUES(${title}, ${context}, ${writer})`;
+  
   connection.query(sql, (err, result, field) => {
     if (err) {
       console.log(err);
