@@ -80,20 +80,20 @@ tagMaker(main, "div", "div", 5);
 tagMaker(main, "div", "div", 5);
 tagMaker(main, "div", "div", 5);
 // -------------------#app > main > (div > div*5) *3--------------------------
-for (let i = 0; i < main.children.length; i++) {
-  const target = main.children[i];
-  for (let e = 0; e < target.children.length; e++) {
-    target.children[e].addEventListener('click', (event) => { 
-      popup('/movieInfo', '검색한 영화!', 730, 820, 100, 200, 'no');
-    });
-  }
-}
+// for (let i = 0; i < main.children.length; i++) {
+//   const target = main.children[i];
+//   for (let e = 0; e < target.children.length; e++) {
+//     target.children[e].addEventListener('click', (event) => { 
+//       popup('/movieInfo', '검색한 영화!', 730, 820, 100, 200, 'no');
+//     });
+//   }
+// }
 
-function popup(url, name, width, height, top, left, location){    
-  const option = `width = ${width}, height = ${height}, top = ${top}, left = ${left}, location = ${location}`;
-  window.open(url, name, option);
-  // 500 500 100 200 no
-}
+// function popup(url, name, width, height, top, left, location){    
+//   const option = `width = ${width}, height = ${height}, top = ${top}, left = ${left}, location = ${location}`;
+//   window.open(url, name, option);
+//   // 500 500 100 200 no
+// }
 
 styleMaker.tagMaker(footer, "div", "");
 const footerDiv = footer.children[0];
@@ -155,13 +155,19 @@ const lanEn = 'en-US';
 
 const query = 'avengers'; // 원하는 영화 검색
 
-const boxOfficeArr = ['범죄도시 2', '탑건: 매버릭', '한산: 용의 출현', '공조2: 인터내셔날', '닥터 스트레인지 2', '헌트', '쥬라기 월드: 도미니언	', '마녀 2', '토르: 러브 앤 썬더', '미니언즈2', '비상선언', '스파이더맨: 노 웨이 홈', '육사오(6/45)	', '헤어질 결심', '외계+인 1부'];
+const boxOfficeArr = ['범죄도시 2', '탑건: 매버릭', '한산: 용의 출현', '공조 2', '닥터 스트레인지 2', '헌트', '쥬라기 월드: 도미니언	', '마녀 2', '토르: 러브 앤 썬더', '미니언즈 2', '비상선언', '스파이더맨: 노 웨이 홈', '육사오	', '헤어질 결심', '외계+인 1부'];
 const movieCodeArr = [619803, 361743]
 /*
-https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query='한산: 용의 출현'
+https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query='공조 2'
 */
 
-const tmdbInfo = (query, arr) => {  
+function popup(url, name, width, height, top, left, location){    
+  const option = `width = ${width}, height = ${height}, top = ${top}, left = ${left}, location = ${location}`;
+  window.open(url, name, option);
+  // 500 500 100 200 no
+}
+
+const tmdbInfo = (query, targetDiv) => {  
     const url = `https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query=${query}`;
     const request = new XMLHttpRequest();
     request.open("GET", url);
@@ -172,14 +178,21 @@ const tmdbInfo = (query, arr) => {
       console.log(apiDat);
       console.log(apiDat.results[0]);
       console.log(apiDat.results[0].backdrop_path);
-      for (let i = 0; i < backdropDivArr.length; i++) {
-        backdropDivArr[i].style.backgroundImage = `https://image.tmdb.org/t/p/original/${apiDat.backdrop_path}`;
-        backdropDivArr[i].style.backgroundSize = 'cover';
-      }
-    });  
+
+      targetDiv.style.backgroundImage = `url("https://image.tmdb.org/t/p/original/${apiDat.results[0].backdrop_path}")`;
+
+      targetDiv.style.backgroundSize = "cover";
+      const urlParam = `/movieParam?title=${apiDat.results[0].title}&rate=${apiDat.results[0].vote_average}&nation=${apiDat.results[0].original_language}&text=${apiDat.results[0].overview}&date=${apiDat.results[0].release_date}&poster=${apiDat.results[0].poster_path}`;
+      targetDiv.addEventListener('click', (event) => { 
+        popup(urlParam, '검색한 영화!', 730, 820, 100, 200, 'no');
+      });     
+    });
 }
 
-tmdbInfo("범죄도시 2");
+for (let i = 0; i < boxOfficeArr.length; i++) {
+  tmdbInfo(boxOfficeArr[i], backdropDivArr[i]);
+}
+
 
 
 

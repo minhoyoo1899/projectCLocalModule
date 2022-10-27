@@ -100,6 +100,56 @@ app.get('/noticeBoard', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/board/noticeBoard/noticeBoard.html'));
 });
 
+app.get('/movieParam', (req, res) => {
+  console.log(req);
+  console.log(req.query);
+  console.log(req.query.title);
+  let nation;
+  switch (req.query.nation) {
+    case "ko":
+      nation = "대한민국";
+      break;
+    case "en":
+      nation = "미국";
+      break;
+  }
+  res.send(`
+  <!DOCTYPE html>
+  <html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>  
+  <link rel="stylesheet" href="./public/css/movieInfo/movieInfor.css" defer/>
+</head>
+
+<body>
+  <div id="root">
+    <div class="maindiv">      
+      <div class="section">
+        <div class="poster"></div>
+        <div class="informa"><span> </span>
+          <div>${req.query.title}</div> <span>평점 </span>
+          <div>⭐⭐⭐⭐⭐${req.query.rate}</div> <span>개요 </span>
+          <div>액션/범죄| ${nation}|129분 |2022.09.07 개봉</div> <span>감독</span>
+          <div>이석훈</div> <span>등급</span>
+          <div>[국내]15세 관람가</div> <span>출연</span>
+          <div>현빈</div> <span> </span>
+          <div>경찰 내 최고 엘리트 조직 내 사과 소속영위 조직에서 유일하게 믿고따르는 윤과장과 함께 f1 레이서 출신의 사업가 정재철을 잡기위해 수사망을 조여가던 시연은 무리한 강압수사를 벌였다는
+            오명을 쓰고 뺑소니 전담반으로 좌천된다 </div>
+        </div>
+      </div>
+      <div class="like"><button>찜하기💗</button></div>
+    </div>
+  </div>
+</body>
+</html>
+`);
+});
+
 
 
 
