@@ -296,6 +296,29 @@ app.post('/writeText', (req, res) => {
   res.redirect('/writeFrame');
 });
 
+app.post("/signUp", (req, res) => {
+  console.log(req);
+  console.log(req.body);
+  const nicName = req.body.nicName;
+  const email = req.body.email;
+  const password = req.body.password;
+  const sql =
+    "INSERT INTO `users` (`nickname`, `email`, `password`) VALUES ('" +
+    nicName +
+    "', '" +
+    email +
+    "', '" +
+    password +
+    "')";
+  connection.query(sql, (err, result, field) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Sever Error");
+    }
+  });
+  res.redirect("/signInPage");
+});
+
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });
