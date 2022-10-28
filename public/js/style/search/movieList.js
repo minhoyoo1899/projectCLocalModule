@@ -156,7 +156,7 @@ const lanEn = 'en-US';
 const query = 'avengers'; // 원하는 영화 검색
 
 const boxOfficeArr = ['범죄도시 2', '탑건: 매버릭', '한산: 용의 출현', '공조 2', '닥터 스트레인지 2', '헌트', '쥬라기 월드: 도미니언	', '마녀 2', '토르: 러브 앤 썬더', '미니언즈 2', '비상선언', '스파이더맨: 노 웨이 홈', '육사오	', '헤어질 결심', '외계+인 1부'];
-const movieCodeArr = [619803, 361743]
+//const movieCodeArr = [619803, 361743]
 /*
 https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query='공조 2'
 */
