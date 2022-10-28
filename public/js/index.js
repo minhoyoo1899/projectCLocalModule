@@ -89,7 +89,6 @@ const tmdbInfo = (query, targetDiv) => {
     });    
   });  
 }
-tmdbInfo("라이트아웃");
 
 function popup(url, name, width, height, top, left, location){    
   const option = `width = ${width}, height = ${height}, top = ${top}, left = ${left}, location = ${location}`;
@@ -139,12 +138,6 @@ arrTag.push(footer);
 styleMaker.styling(arrTag, indexCss.indexCss);
 
 
-//footer.style.display = "flex";
-//footer.style.height = "30vh";
-
-
-
-
 styleMaker.tagMaker(footer, "div", "");
 const footerDiv = footer.children[0];
 const footerDivChildren = ["div", "div", "div"];
@@ -154,8 +147,7 @@ footerDivChildren1.innerHTML = "사업자번호 : 123-45-678910  대표: 이아�
 const footerDivChildren2 = footerDiv.children[1];
 footerDivChildren2.innerHTML = "(12345) 대전광역시 서구 대덕로 182, 오라클빌딩 3층";
 const footerDivChildren3 = footerDiv.children[2];
-footerDivChildren3.innerHTML = "전화 : 010-159-7598  팩스 : 042-4562-1456  이메일 : support@google.com" 
-// footer 내용 추가
+footerDivChildren3.innerHTML = "전화 : 010-159-7598  팩스 : 042-4562-1456  이메일 : support@google.com"
 
 footerDiv.style.width = "auto";
 footerDiv.style.height = "300px";
@@ -164,9 +156,7 @@ footerDiv.style.flexDirection = "column";
 footerDiv.style.alignContent = "center";
 footerDiv.style.justifyContent = "space-around";
 
-// footerDivChildren1.style.width = "70%";
+
 footerDivChildren1.style.height = "auto";
-// footerDivChildren2.style.width = "70%";
 footerDivChildren2.style.height = "auto";
-// footerDivChildren3.style.width = "70%";
 footerDivChildren3.style.height = "auto";

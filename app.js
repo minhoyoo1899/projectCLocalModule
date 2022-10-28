@@ -126,37 +126,37 @@ app.get('/movieParam', (req, res) => {
   res.send(`
   <!DOCTYPE html>
   <html lang="en">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>  
-  <link rel="stylesheet" href="./public/css/movieInfo/movieInfor.css" defer/>
-</head>
-
-<body>
-  <div id="root">
-    <div class="maindiv">      
-      <div class="section">
-        <div class="poster">
-        <img src="https://image.tmdb.org/t/p/original${req.query.poster}" style="width: 100%;"/>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/movieInfo/movieInfor.css" defer/>
+  </head>
+  <body>
+    <div id="root">
+      <div class="maindiv">
+        <div class="section">
+          <div class="poster">
+            <img src="https://image.tmdb.org/t/p/original${req.query.poster}" style="width: 100%;"/>
+          </div>
+          <div class="informa"><span> </span>
+            <div>${req.query.title}</div>
+            <span> 평점 </span><div>⭐⭐⭐⭐⭐${req.query.rate}</div>
+            <span> 개요 </span><div> 액션/범죄 | ${nation} | 129분 |${req.query.date} 개봉</div>
+            <span> 감독 </span><div> 이석훈 </div> 
+            <span> 등급 </span><div> [국내]15세 관람가 </div> 
+            <span> 출연 </span><div> 현빈 </div> 
+            <span></span>
+            <div>${req.query.text}</div>
+          </div>
         </div>
-        <div class="informa"><span> </span>
-          <div>${req.query.title}</div> <span>평점 </span>
-          <div>⭐⭐⭐⭐⭐${req.query.rate}</div> <span>개요 </span>
-          <div>액션/범죄| ${nation}|129분 |${req.query.date} 개봉</div> <span>감독</span>
-          <div>이석훈</div> <span>등급</span>
-          <div>[국내]15세 관람가</div> <span>출연</span>
-          <div>현빈</div> <span> </span>
-          <div>${req.query.text} </div>
+        <div class="like">
+          <button>찜하기💗</button>
         </div>
       </div>
-      <div class="like"><button>찜하기💗</button></div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
 `);
 });
@@ -193,21 +193,20 @@ app.get('/randomMovieParam', (req, res) => {
       <div id="app">
         <div id="drawer">
         <div id="card" style="transform-style: preserve-3d; transform: rotateY(0deg); transition: all 1s ease 0s; background-image: url('${req.query.poster}'); backgound-size: contain;">
-        <div id="front" style="backface-visibility: visible;">
-        </div>
-        <div>
+          <div id="front" style="backface-visibility: visible;"></div>
           <div>
             <div>
-              <span>개봉: ${req.query.date}</span>
+              <div>
+                <span> 개봉: ${req.query.date} </span>
               </div>
             <div>
-              <span>국가 : ${nation}</span>
+              <span> 국가 : ${nation} </span>
             </div>
             <div>
-              <span>평점: ${req.query.rate}점</span>
+              <span> 평점: ${req.query.rate}점 </span>
             </div>
             <div>
-              <span>시놉시스 : ${req.query.text}</span>
+              <span> 시놉시스 : ${req.query.text} </span>
             </div>
           </div>
          </div>
@@ -223,27 +222,24 @@ app.get('/randomMovieParam', (req, res) => {
 
         let isClick = true;
 
-
         drawer.addEventListener('click', ()=>{
           if(isClick===true){
             isClick = false;
-            console.log(isClick);
+            //console.log(isClick);
         
             card.style.transformStyle = "preserve-3d";
             card.style.transform = "rotateY(180deg)";
             card.style.transition = "1s";
-          } else{
+          } else {
             isClick = true;
-            console.log(isClick);
+            //console.log(isClick);
         
             card.style.transformStyle = "preserve-3d";
             card.style.transform = "rotateY(0deg)";
             card.style.transition = "1s";
             front.style.backfaceVisibility = "visible";
           }
-        })
-
-
+        });
       </script>
     </body>
   </html>
