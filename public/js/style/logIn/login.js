@@ -19,6 +19,10 @@ makeParDiv(body, "fieldset");
 app.innerHTML = body.join("");
 let form = app.children[0];
 form.className = "form";
+form.setAttribute("method", "POST");
+form.setAttribute("id", "form");
+form.setAttribute("enctype", "x-www-form-urlencoded");
+form.setAttribute("action", "/signIn");
 
 //fieldset
 let fieldset = document.getElementsByTagName("fieldset")[0];
@@ -42,6 +46,13 @@ button.innerText = "로그인";
 textdiv.innerHTML = `<div>아이디찾기/비밀번호 찾기</div> <div id = 'signUp'>회원가입</div>`;
 
 const signUp = document.getElementById('signUp');
+
+const nickName = fieldset.children[1];
+const pwd = fieldset.children[2];
+nickName.name = "nickName";
+nickName.id = "nickName";
+pwd.name = "pwd";
+pwd.id = "pwd";
 
 signUp.addEventListener('click', (event) => {
   location.href = '/signInPage';

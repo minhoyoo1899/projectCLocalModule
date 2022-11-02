@@ -55,7 +55,7 @@ const boardDiv = menuDiv.children[4];
 boardDiv.textContent = "게시판";
 boardDiv.style.cursor = "pointer";
 boardDiv.addEventListener('click', (event) => {
-  location.href = '/board';
+  location.href = '/boardList';
 });
 
 const mainChildren = ["div", "section"];

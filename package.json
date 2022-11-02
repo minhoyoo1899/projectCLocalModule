@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/minhoyoo1899/projectCLocalModule#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "json": "^11.0.0",
     "mysql": "^2.18.1",
     "request": "^2.88.2",
     "xml2js": "^0.4.23"

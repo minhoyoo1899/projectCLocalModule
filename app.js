@@ -3,6 +3,10 @@ import path from 'path';
 import mysql from 'mysql';
 import request from 'request';
 import * as fs from 'fs';
+import cookieParser from 'cookie-parser';
+//import credentials from './development.json';
+//import * as json  from 'json';
+//const credentials = require('./development.json');
 
 const dbconfig = {
   host: 'localhost',
@@ -22,12 +26,18 @@ const __dirname = path.resolve();
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/source', express.static(__dirname + '/source'));
 
+//bodyparser
 app.use(express.json());
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser("mycookie"));
+
+
 
 app.get('/', (req, res) => { 
   //res.send('Hello, Express');
   res.sendFile(path.join(__dirname, '/public/index.html'));
+  console.log("Cookies: ", req.cookies);
 });
 
 app.get('/adminLogin', (req, res) => { 
@@ -383,9 +393,9 @@ app.get('/api', (req, res) => {
 app.post('/writeText', (req, res) => { 
   const title = req.body.forum_title;
   const writer = req.body.ueser_name;
-  const context = req.body.user_message;
+  const context = req.body.user_message;  
   
-  const sql = "INSERT INTO `board_` (`BOARD_TITLE`,`BOARD_CONTEXT`,`USER_NAME`) VALUES ('"+title+"','"+writer+"','"+context+"')";
+  const sql = "INSERT INTO `board_` (`BOARD_TITLE`,`BOARD_CONTEXT`,`USER_NAME`, `BOARD_DATE`) VALUES ('"+title+"','"+writer+"','"+context+"', NOW())";
   
   connection.query(sql, (err, result, field) => {
     if (err) {
@@ -395,6 +405,69 @@ app.post('/writeText', (req, res) => {
   });
   res.redirect('/writeFrame');
 });
+
+
+app.get('/boardList', (req, res) => {
+  const sql = "SELECT BOARD_SEQ, BOARD_TITLE, USER_NAME, BOARD_DATE FROM board_"
+  
+  connection.query(sql, (err, result, field) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    console.log(result);
+    fs.readFile("./public/views/board/board_2.html", "utf-8", (err, data) => {
+      if (err) throw err;
+      //console.log(data);
+      const listArr = [];
+      for (let i = 0; i < result.length; i++) {
+        const listTemplate = `
+              <tr>
+                <td>${result[i].BOARD_SEQ}</td>
+              <th>
+                <a href="/viewContext?BOARD_SEQ=${result[i].BOARD_SEQ}">
+                ${result[i].BOARD_TITLE}
+                </a>
+              </th>
+                <td>${result[i].USER_NAME}</td>
+                <td>${result[i].BOARD_DATE}</td>
+              </tr>`;
+        listArr.push(listTemplate);
+      }
+
+      const temp = data.replace('<Ahyeon>', listArr.join(""));
+      res.send(temp);
+    });
+  });
+});
+
+app.get('/viewContext', (req, res) => { 
+  const sql = `SELECT * FROM board_  WHERE BOARD_SEQ = ${req.query.BOARD_SEQ}`;
+
+  connection.query(sql, (err, result, field) => { 
+    if (err) {
+      console.log(err);
+      res.status(500).send('Interbal Server Error');
+    }
+    fs.readFile("./public/views/board/noticeBoard/noticeBoard_2.html", "utf-8", (err, data) => {
+      if (err) throw err;
+      // console.log(result);
+      // console.log(data);
+      const temp = data.replace('<Ahyeon-Title>', result[0].BOARD_TITLE)
+        .replace('<Ahyeon-Name>', result[0].BOARD_TITLE)
+        .replace('<Ahyeon-Date>', result[0].BOARD_DATE)
+        .replace('<Ahyeon-Context>', result[0].BOARD_CONTEXT)
+        .replace('<Ahyeon-SEQ>', result[0].BOARD_SEQ);
+      console.log(temp);
+      res.send(temp);
+    });
+  });
+  //console.log(req);
+  //console.log(req.query);
+  //console.log(req.query.BOARD_SEQ);
+});
+
+
 
 app.post("/signUp", (req, res) => {
   console.log(req);
@@ -417,6 +490,53 @@ app.post("/signUp", (req, res) => {
     }
   });
   res.redirect("/signInPage");
+});
+
+
+app.post("/signIn", (req, res) => {
+  console.log(req.body);
+  const nickname = req.body.nickName;
+  const password = req.body.pwd;
+  console.log(nickname);
+  console.log(password);  
+  const sql = `SELECT USER_SEQ,USER_PASS FROM in_the_m.user_ where USER_NAME = "${nickname}";`;
+  connection.query(sql, (err, result, field) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    }
+    if (result[0].USER_PASS === password) {
+      // const expiresd = new Date();
+      // const expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 24 * 7); // 24 hour 7일
+      const exDat = new Date(Date.now() + 1000 * 60 * 60);
+      const seq = result[0].USER_SEQ;
+      
+      // res.writeHead(302, {
+      //   Location: '/',
+      //   'Set-Cookie': `USER_SEQ='${encodeURIComponent(seq)}'; Expires=${exDat}; HttpOnly; Path=/`,
+      // });
+      
+      // 쿠키 유효시간을 현재시간 +5분으로 설정
+      //expiresd.setMinutes(expires.getMinutes() + 5);
+      //expiresd.toGMTString()
+
+       res.cookie('USER_SEQ', seq, { expires: exDat, httpOnly: true, signed: true }).send(`<script>alert('로그인되었습니다. ${req.cookies}'); location.href='/';</script>`);
+      
+      // console.log(req.cookies);
+
+      
+      
+      //console.log("Cookies: ", req.cookies);
+      
+    } else {
+      res.send(
+        "<script>alert('비밀번호가 틀립니다.'); location.href='/logIn';</script>"
+      );
+    }
+    //console.log(result);
+    //console.log(result[0].USER_PASS);    
+  });
+  //res.redirect("/logIn");
 });
 
 app.listen(app.get('port'), () => {
