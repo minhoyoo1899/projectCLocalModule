@@ -64,31 +64,44 @@ styleMaker.tagMaker(main, mainChildren);
 const randomDiv = main.children[0];
 const section = main.children[1];
 
-const genreArr = ['코믹', '공포', '액션', '어드벤처', '로맨스', '드라마', 'SF', '범죄/느와르'];
+const genreArr = ['코메디', '공포', '액션', '어드벤처', '로맨스', '드라마', 'SF', '범죄'];
 // 코믹 : 공조 , 공포 :라이트아웃, 액션 : 존윅, 어드벤쳐 : 언챠티드, 로맨스 : 헤어질결심 드라마 : 보헤미안 랩소디 SF : 테넷 범죄/느와르 : 신세계
 
-const movieTitleArr = ['공조', '라이트 아웃', '존 윅 3', '언차티드', '헤어질 결심', '보헤미안 랩소디', '테넷', '신세계'];
+// const movieTitleArr = ['공조', '라이트 아웃', '존 윅 3', '언차티드', '헤어질 결심', '보헤미안 랩소디', '테넷', '신세계'];
 // https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query=라이트 아웃
 
 styleMaker.ranBtnMaker(randomDiv, genreArr);
 styleMaker.singleCssMulipleStyling(randomDiv.children, indexCss.randomDivCss);
 
-const tmdbInfo = (query, targetDiv) => {
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query=${query}`;
-  const request = new XMLHttpRequest();
-  request.open("GET", url);
-  request.responseType = "json";
-  request.send();
-  request.addEventListener('load', (event) => { 
-    const apiDat = request.response;
-    console.log(apiDat);
-    const urlParam = `/randomMovieParam?title=${apiDat.results[0].title}&rate=${apiDat.results[0].vote_average}&nation=${apiDat.results[0].original_language}&text=${apiDat.results[0].overview}&date=${apiDat.results[0].release_date}&poster=https://image.tmdb.org/t/p/w500${apiDat.results[0].poster_path}`;
-
-    targetDiv.addEventListener('click', (event) => {
-      popup(urlParam, '검색한 영화!', 730, 820, 100, 200, 'no');
-    });    
-  });  
+const randMovie = (param, index, targetDiv) => {
+  const urlParam = `/randMovie?param=${param}&index=${index}`;
+  targetDiv.addEventListener('click', (event) => {
+    popup(urlParam, '랜덤 영화!', 730, 820, 100, 200, 'no');
+  });
 }
+
+for (let i = 0; i < randomDiv.children.length; i++) {
+  const targetDiv = randomDiv.children[i];
+  randMovie(genreArr[i], i, targetDiv);
+ }
+
+
+// const tmdbInfo = (query, targetDiv) => {
+//   const url = `https://api.themoviedb.org/3/search/movie?api_key=c4fc9ca86ccc89b226126b6beccd9731&language=ko&page=1&include_adult=true&query=${query}`;
+//   const request = new XMLHttpRequest();
+//   request.open("GET", url);
+//   request.responseType = "json";
+//   request.send();
+//   request.addEventListener('load', (event) => { 
+//     const apiDat = request.response;
+//     console.log(apiDat);
+//     const urlParam = `/randomMovieParam?title=${apiDat.results[0].title}&rate=${apiDat.results[0].vote_average}&nation=${apiDat.results[0].original_language}&text=${apiDat.results[0].overview}&date=${apiDat.results[0].release_date}&poster=https://image.tmdb.org/t/p/w500${apiDat.results[0].poster_path}`;
+
+//     targetDiv.addEventListener('click', (event) => {
+//       popup(urlParam, '검색한 영화!', 730, 820, 100, 200, 'no');
+//     });
+//   });  
+// }
 
 function popup(url, name, width, height, top, left, location){    
   const option = `width = ${width}, height = ${height}, top = ${top}, left = ${left}, location = ${location}`;
@@ -96,10 +109,11 @@ function popup(url, name, width, height, top, left, location){
   // 500 500 100 200 no
 }
 
-for (let i = 0; i < randomDiv.children.length; i++) {
-  const target = randomDiv.children[i];
-  tmdbInfo(movieTitleArr[i], target);  
-}
+// for (let i = 0; i < randomDiv.children.length; i++) {
+//   const target = randomDiv.children[i];
+//   tmdbInfo(movieTitleArr[i], target);
+// }
+
 
  
 

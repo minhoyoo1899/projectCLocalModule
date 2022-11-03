@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="./public/js/index.js" defer></script>
+  <link rel="stylesheet" href="./public/css/index.css" defer>
+</head>
+<body>
+  <div id="root">
+    <div style="width: 99vw;"><img src="./source/img/bg_dpimg.png"
+        style="width: 100%; position: absolute; z-index: -1;">
+      <header id ="header"
+        style="width: 100%; height: 10vh; background-color: rgba(45, 45, 45, 0.5); display: flex; flex-flow: row-reverse nowrap; place-content: center flex-start; align-items: center; color: rgb(214, 214, 214);">
+        <div
+          style="width: 50%; display: flex; flex-flow: row nowrap; place-content: center space-evenly; align-items: center;">
+          <div style="cursor: pointer;">검색</div>
+          <div id="logIn" style="cursor: pointer; display: '<Ahyeon-SignIn>';">로그인</div>
+          <div id="logOut" style="cursor: pointer; display: '<Ahyeon-SignOut>';">로그아웃</div>
+          <div style="cursor: pointer;">마이페이지</div>
+          <div style="cursor: pointer;">게시판</div>
+        </div>
+      </header>
+      <main style="width: 100%; display: flex;">
+        <div
+          style="width: 30%; color: rgb(214, 214, 214); display: flex; flex-flow: column wrap; place-content: center space-evenly; align-items: center;">
+          <div id="genre-1" dataset-randomgenre="1"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 코메디 </div>
+          </div>
+          <div id="genre-2" dataset-randomgenre="2"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 공포 </div>
+          </div>
+          <div id="genre-3" dataset-randomgenre="3"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 액션 </div>
+          </div>
+          <div id="genre-4" dataset-randomgenre="4"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 어드벤처 </div>
+          </div>
+          <div id="genre-5" dataset-randomgenre="5"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 로맨스 </div>
+          </div>
+          <div id="genre-6" dataset-randomgenre="6"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 드라마 </div>
+          </div>
+          <div id="genre-7" dataset-randomgenre="7"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> SF </div>
+          </div>
+          <div id="genre-8" dataset-randomgenre="8"
+            style="width: 8vw; height: 2vw; display: flex; flex-flow: row nowrap; place-content: center; align-items: center; border: 1px solid rgb(214, 214, 214); border-radius: 27px;">
+            <div> 범죄 </div>
+          </div>
+        </div>
+        <section style="width: 70%; display: flex; flex-flow: row nowrap; align-content: center; align-items: center;">
+          <div id="explDiv"
+            style="width: 49%; height: 71%; position: absolute; background-color: black; opacity: 0.4; display: flex; left: 34%; color: white; font-size: 5rem;">
+            <div>설명구간</div>
+          </div>
+          <div style="width: 88%;"><video src="./source/vod/Gongjo2.mp4" autoplay="" controls="" loop=""
+              style="width: 100%;">undefined</video></div>
+        </section>
+      </main>
+      <footer
+        style="width: 100%; height: 30vh; background-color: rgba(45, 45, 45, 0.5); color: rgb(214, 214, 214); margin: 6% 0% 0%;">
+        <div
+          style="width: auto; height: 300px; display: flex; flex-direction: column; place-content: center space-around;">
+          <div style="height: auto;">사업자번호 : 123-45-678910 대표: 이아연</div>
+          <div style="height: auto;">(12345) 대전광역시 서구 대덕로 182, 오라클빌딩 3층</div>
+          <div style="height: auto;">전화 : 010-159-7598 팩스 : 042-4562-1456 이메일 : support@google.com</div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script>
+    const logIn = document.getElementById('logIn');
+    const logOut = document.getElementById('logOut');
+    //console.log(logIn);
+    //console.log(logOut);
+    // logIn.addEventListener('click', (event)=> {
+    //   location.href = '/logIn';
+    // });
+    // logOut.addEventListener('click', (event)=> {
+    //   console.log('a');
+    //   //location.href = '/clearLogIn';
+    // });
+  </script>
+
+</body>
+
+</html>

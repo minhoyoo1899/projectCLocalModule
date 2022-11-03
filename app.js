@@ -3,7 +3,7 @@ import path from 'path';
 import mysql from 'mysql';
 import request from 'request';
 import * as fs from 'fs';
-import cookieParser from 'cookie-parser';
+import cookieParser, { signedCookies } from 'cookie-parser';
 //import credentials from './development.json';
 //import * as json  from 'json';
 //const credentials = require('./development.json');
@@ -35,10 +35,46 @@ app.use(cookieParser("mycookie"));
 
 
 app.get('/', (req, res) => { 
-  //res.send('Hello, Express');
   res.sendFile(path.join(__dirname, '/public/index.html'));
-  console.log("Cookies: ", req.cookies);
+  if (req.signedCookies !== undefined) { 
+    console.log(req.signedCookies);
+  }
+  //req.clearCookie('쿠키이름');
 });
+// app.get('/', (req, res) => { 
+//   //res.send('Hello, Express');
+//   // res.sendFile(path.join(__dirname, '/public/index_2.html'));
+//   fs.readFile("./public/index_2.html", "utf-8", (err, data) => {
+//     console.log(req.signedCookies);
+//     if (err) throw err;
+//     console.log(data);    
+//     if (req.signedCookies !== undefined) {
+//       const temp = data.replace('<Ahyeon-SignIn>', "none").replace('<Ahyeon-SignOut>', "flex");
+//       res.send(temp);
+//     } else {
+//       const temp = data.replace('<Ahyeon-SignOut>', "none").replace('<Ahyeon-SignIn>', "flex");
+//       res.send(temp);
+//     }
+
+//   });
+
+  app.get('/clearLogIn', (req, res) => { 
+    req.clearCookie('USER_SEQ');
+    res.redirect('/');
+  });
+
+
+  // if (req.cookies !== null) {
+  //   // console.log(req);
+  //   // console.log("Cookies: ", req.cookies);
+  //   // console.log(req.cookies);
+  //   // console.log(req.signedCookies)
+  //   // console.log(req.signedCookies.USER_SEQ);
+  //   //console.log(req.cookies);
+  //   //console.log(Array.isArray(req.cookies));    
+  //   //console.log(typeof req.cookies);
+  // }  
+// });
 
 app.get('/adminLogin', (req, res) => { 
   res.sendFile(path.join(__dirname, '/public/views/admin/adminLogin.html'));
@@ -116,6 +152,91 @@ app.get('/randomMovie', (req, res) => {
   //res.sendFile(path.join(__dirname, '/public/views/randomMovie/randomMovie.html'));  
 });
 
+const randomMovie = (sqlParam, tobus, code, res) => {
+  const sql = `SELECT id,title,repRlsDate,nation,rating,runtime,genre,directors,plots,actors,posters FROM movie_api WHERE genre LIKE '%${sqlParam}%' ORDER BY RAND() LIMIT 1`;
+  connection.query(sql, (error, rows) => {
+    if (error) throw error;
+    //console.log(rows);
+    fs.readFile("./public/views/randomMovie/randomMovie_2.html", "utf-8", (err, data) => {
+      if (err) throw err;
+      //console.log(rows);
+      //console.log(data);
+      //console.log(rows[0].posters);
+      const tobusURL = tobus;
+      const tmeplating = (page,url,title, date, nation, runtime, rating, genre, directors, actors, plots, code) => {
+        const temp = page.replace('<RDN-Poster>', url)
+          .replace('<RDN-Title>', title)
+          .replace('<RDN-repRlsDate>', date)
+          .replace('<RDN-Nation>', nation)
+          .replace('<RDN-Runtime>', runtime)
+          .replace('<RDN-Rating>', rating)
+          .replace('<RDN-Genre>', genre)
+          .replace('<RDN-Director>', directors)
+          .replace('<RDN-Actor>', actors)
+          .replace('<RDN-Polots>', plots)
+          .replace('<RDN-GenCode>', code);
+          res.send(temp);
+      }
+
+      if (rows[0].posters === "" || rows[0].posters === null) {
+        tmeplating(data, tobusURL, rows[0].title, rows[0].repRlsDate, rows[0].nation, rows[0].runtime, rows[0].rating, rows[0].genre, rows[0].directors, rows[0].actors, rows[0].plots, code);  
+      } else {        
+        tmeplating(data, rows[0].posters, rows[0].title, rows[0].repRlsDate, rows[0].nation, rows[0].runtime, rows[0].rating, rows[0].genre, rows[0].directors, rows[0].actors, rows[0].plots, code);
+      }      
+    });
+  });
+}
+
+
+app.get('/randMovie', (req, res) => { 
+  //console.log(req.query);
+  //console.log(req.query.param);
+  //console.log(req.query.index);
+  randomMovie(req.query.param, "./source/img/TBUS.png", req.query.index, res);
+});
+
+
+
+app.get('/anotherRand', (req, res) => {
+  const genCode = req.query.index;
+  //console.log(genCode);
+  //console.log(typeof genCode);
+
+  const genreArr = ['코메디', '공포', '액션', '어드벤처', '로맨스', '드라마', 'SF', '범죄'];  
+  
+    switch (genCode) {
+      case '0':        
+        randomMovie(genreArr[0], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '1':        
+        randomMovie(genreArr[1], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '2':        
+        randomMovie(genreArr[2], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '3':        
+        randomMovie(genreArr[3], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '4':        
+        randomMovie(genreArr[4], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '5':        
+        randomMovie(genreArr[5], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '6':        
+        randomMovie(genreArr[6], "./source/img/TBUS.png", genCode, res);
+        break;
+      case '7':        
+        randomMovie(genreArr[7], "./source/img/TBUS.png", genCode, res);
+        break;
+    }
+});
+
+
+
+
+
+
 app.get('/noticeBoard', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/views/board/noticeBoard/noticeBoard.html'));
 });
@@ -171,13 +292,6 @@ app.get('/movieParam', (req, res) => {
 `);
 });
 
-
-
-
-
-
-
-
 app.get('/randomMovieParam', (req, res) => {
   console.log(req.query);
   let nation;
@@ -202,7 +316,7 @@ app.get('/randomMovieParam', (req, res) => {
     <body>
       <div id="app">
         <div id="drawer">
-        <div id="card" style="transform-style: preserve-3d; transform: rotateY(0deg); transition: all 1s ease 0s; background-image: url('${req.query.poster}'); backgound-size: contain;">
+        <div id="card" style="transform-style: preserve-3d; transform: rotateY(0deg); transition: all 1s ease 0s; background-image: url('${req.query.poster}'); background-size: contain;">
           <div id="front" style="backface-visibility: visible;"></div>
           <div>
             <div>
@@ -384,7 +498,7 @@ app.get('/api', (req, res) => {
     <body>
         <div id="app">
           api : ${response.body}
-        </div>        
+        </div>
     </body>
     </html>`);
   });
@@ -506,6 +620,7 @@ app.post("/signIn", (req, res) => {
       res.status(500).send("Internal Server Error");
     }
     if (result[0].USER_PASS === password) {
+      console.log(result);
       // const expiresd = new Date();
       // const expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 24 * 7); // 24 hour 7일
       const exDat = new Date(Date.now() + 1000 * 60 * 60);
@@ -519,15 +634,10 @@ app.post("/signIn", (req, res) => {
       // 쿠키 유효시간을 현재시간 +5분으로 설정
       //expiresd.setMinutes(expires.getMinutes() + 5);
       //expiresd.toGMTString()
-
-       res.cookie('USER_SEQ', seq, { expires: exDat, httpOnly: true, signed: true }).send(`<script>alert('로그인되었습니다. ${req.cookies}'); location.href='/';</script>`);
-      
-      // console.log(req.cookies);
-
-      
-      
-      //console.log("Cookies: ", req.cookies);
-      
+      res.cookie('USER_SEQ', seq, { expires: exDat, httpOnly: false, signed: true }).send(`<script>alert('로그인되었습니다.'); location.href='/';</script>`);
+      //res.send(`<script>alert('로그인되었습니다.'); location.href='/';</script>`);
+      // console.log(req.cookies);      
+      //console.log("Cookies: ", req.cookies);     
     } else {
       res.send(
         "<script>alert('비밀번호가 틀립니다.'); location.href='/logIn';</script>"
