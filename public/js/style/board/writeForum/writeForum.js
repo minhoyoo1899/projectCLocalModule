@@ -12,7 +12,7 @@ form.method = "POST";
 
 const listButton = document.getElementById('listButton');
 listButton.addEventListener('click', (event) => {
-  location.href = '/board';
+  location.href = '/boardList';
 });
 
 

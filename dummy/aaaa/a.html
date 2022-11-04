@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    const indexList = (function numberSet() {
+      let tempArray = [];
+      for (let i = 0; i < 19; i++) {
+        tempArray.push(i + 1);
+      }
+      console.log(tempArray);
+      return tempArray;
+    })(); //즉시실행 함수 표현식
+    
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+    function afterRandom(arr) {
+      let reOrderArray = [];
+      let targetArr = arr.map(e => e);  // 깊은 복사 하기위해 map() 원본 데이터를 건드리는것 없이 사용
+      while (reOrderArray.length < arr.length) {
+        let getRandomIntResult = getRandomInt(targetArr[0], targetArr[targetArr.length - 1]);
+        if (reOrderArray.includes(getRandomIntResult) === true) {
+        } else {
+          reOrderArray.push(targetArr[getRandomIntResult - 1]);
+          targetArr.splice(getRandomIntResult - 1, 1);
+        }
+      }
+      let setIndex = 0;
+      reOrderArray.forEach((element, index) => {
+        if (element === undefined) {
+          reOrderArray[index] = targetArr[setIndex];
+          setIndex++;
+        }
+      });
+      return reOrderArray;
+    }    
+    let collectStatistics = {};
+    for (let i = 0; i< 100; i++) {
+      collectStatistics[`${i + 1}회`] = afterRandom(indexList);
+    }
+
+    console.log("a")
+    console.log(collectStatistics);
+
+
+    // ------------- 위는 알고리즘 ----------------------
+
+    const root = document.getElementById('root');
+    let ulTag = document.createElement('ul');
+    ulTag.id = "algorithm-test";
+    root.appendChild(ulTag);
+
+    let setData = Object.values(collectStatistics);
+    let liBox = [];
+    for (let i = 0; i < Object.values(collectStatistics).length; i++) {
+      const liTag = `<li>${setData[i]}</li>`;
+      liBox.push(liTag);
+    }
+    root.children[0].innerHTML = liBox.join("");
+    console.log(Object.values(collectStatistics));
+
+
+  </script>
+</body>
+
+</html>
