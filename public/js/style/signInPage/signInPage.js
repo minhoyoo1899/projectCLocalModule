@@ -2,9 +2,10 @@ const app = document.getElementById("app");
 
 function formMaker(){
   const form = document.createElement("form");
-  form.setAttribute("action", "post");
+  form.setAttribute("method", "POST");
   form.setAttribute("id", "form");
-  form.setAttribute("onsubmit", "return false");
+  form.setAttribute("enctype", "x-www-form-urlencoded");
+  form.setAttribute("action", "/signUp");
   app.appendChild(form);
   // app > form
 

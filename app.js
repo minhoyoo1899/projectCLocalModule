@@ -592,7 +592,7 @@ app.post("/signUp", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const sql =
-    "INSERT INTO `users` (`nickname`, `email`, `password`) VALUES ('" +
+    "INSERT INTO `user_` (`USER_NAME`, `USER_ENAME`,`USER_PASS`) VALUES ('" +
     nicName +
     "', '" +
     email +
