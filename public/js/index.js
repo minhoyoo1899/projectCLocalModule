@@ -40,6 +40,7 @@ signDiv.addEventListener('click', (event) => {
 
 const signOutDiv = menuDiv.children[2];
 signOutDiv.style.cursor = "pointer";
+signOutDiv.style.display = "none";
 signOutDiv.textContent = "로그아웃";
 
 const myInfoDiv = menuDiv.children[3];

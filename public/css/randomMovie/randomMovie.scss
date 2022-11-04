@@ -21,7 +21,7 @@ $col-3:rgb(224, 184, 190);
 #app{
   @include size(700px,800px);
   @include flexSet(space-evenly,center,column);
-  background-color: $col-2;
+  background-color: rgba(245,245,245,1);
 
   &>div{
     @include size(500px,600px);
@@ -57,13 +57,14 @@ $col-3:rgb(224, 184, 190);
         &>div{
           @include size(100%,100%);
           @include flexSet(space-evenly,center,column);
-          background-color: $col-3;
+          background-color: rgba(10,10,10,1);
 
           &>div{
             
             &>span{
-              font-size: 1.5rem;
+              font-size: 0.9rem;
               text-align: center;
+              color: rgb(245,245,247);
             }
           }
           

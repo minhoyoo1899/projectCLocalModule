@@ -11,7 +11,7 @@
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  background-color: #D9D9D9;
+  background-color: rgb(245, 245, 245);
 }
 #app > div {
   width: 500px;
@@ -54,11 +54,12 @@
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(224, 184, 190);
+  background-color: rgb(10, 10, 10);
 }
 #app > div > div > div:nth-child(2) > div > div > span {
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   text-align: center;
+  color: rgb(245, 245, 247);
 }
 #app > span {
   font-size: 2rem;

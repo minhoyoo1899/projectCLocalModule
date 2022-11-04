@@ -192,7 +192,7 @@ app.get('/randMovie', (req, res) => {
   //console.log(req.query);
   //console.log(req.query.param);
   //console.log(req.query.index);
-  randomMovie(req.query.param, "./source/img/TBUS.png", req.query.index, res);
+  randomMovie(req.query.param, "./source/img/TBUS_2.png", req.query.index, res);
 });
 
 
@@ -206,28 +206,28 @@ app.get('/anotherRand', (req, res) => {
   
     switch (genCode) {
       case '0':        
-        randomMovie(genreArr[0], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[0], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '1':        
-        randomMovie(genreArr[1], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[1], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '2':        
-        randomMovie(genreArr[2], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[2], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '3':        
-        randomMovie(genreArr[3], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[3], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '4':        
-        randomMovie(genreArr[4], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[4], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '5':        
-        randomMovie(genreArr[5], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[5], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '6':        
-        randomMovie(genreArr[6], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[6], "./source/img/TBUS_2.png", genCode, res);
         break;
       case '7':        
-        randomMovie(genreArr[7], "./source/img/TBUS.png", genCode, res);
+        randomMovie(genreArr[7], "./source/img/TBUS_2.png", genCode, res);
         break;
     }
 });
@@ -406,7 +406,7 @@ app.get("/dbtest3", (req, res) => {
       const total = [rows[0].DIRECTOR_NAME];
       total.unshift(front);
       total.push(back);
-      console.log(total);
+      //console.log(total);
       res.send(`${total}`);
     });
   });
@@ -522,7 +522,7 @@ app.post('/writeText', (req, res) => {
 
 
 app.get('/boardList', (req, res) => {
-  const sql = "SELECT BOARD_SEQ, BOARD_TITLE, USER_NAME, BOARD_DATE FROM board_"
+  const sql = "SELECT BOARD_SEQ, BOARD_TITLE, USER_NAME, DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s') FROM board_ ORDER BY BOARD_SEQ DESC";
   
   connection.query(sql, (err, result, field) => {
     if (err) {
@@ -530,9 +530,11 @@ app.get('/boardList', (req, res) => {
       res.status(500).send('Internal Server Error');
     }
     console.log(result);
+    console.log(result[0]["DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s')"]);    
     fs.readFile("./public/views/board/board_2.html", "utf-8", (err, data) => {
       if (err) throw err;
-      //console.log(data);
+      // console.log(data);      
+      
       const listArr = [];
       for (let i = 0; i < result.length; i++) {
         const listTemplate = `
@@ -544,7 +546,7 @@ app.get('/boardList', (req, res) => {
                 </a>
               </th>
                 <td>${result[i].USER_NAME}</td>
-                <td>${result[i].BOARD_DATE}</td>
+                <td>${result[i]["DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s')"]}</td>
               </tr>`;
         listArr.push(listTemplate);
       }
@@ -556,7 +558,7 @@ app.get('/boardList', (req, res) => {
 });
 
 app.get('/viewContext', (req, res) => { 
-  const sql = `SELECT * FROM board_  WHERE BOARD_SEQ = ${req.query.BOARD_SEQ}`;
+  const sql = `SELECT BOARD_TITLE,DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s'),BOARD_CONTEXT,BOARD_SEQ FROM board_  WHERE BOARD_SEQ = ${req.query.BOARD_SEQ}`;
 
   connection.query(sql, (err, result, field) => { 
     if (err) {
@@ -569,7 +571,7 @@ app.get('/viewContext', (req, res) => {
       // console.log(data);
       const temp = data.replace('<Ahyeon-Title>', result[0].BOARD_TITLE)
         .replace('<Ahyeon-Name>', result[0].BOARD_TITLE)
-        .replace('<Ahyeon-Date>', result[0].BOARD_DATE)
+        .replace('<Ahyeon-Date>', result[0]["DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s')"])
         .replace('<Ahyeon-Context>', result[0].BOARD_CONTEXT)
         .replace('<Ahyeon-SEQ>', result[0].BOARD_SEQ);
       console.log(temp);
