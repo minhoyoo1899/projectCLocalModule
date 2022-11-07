@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import cookieParser, { signedCookies } from 'cookie-parser';
 //import credentials from './development.json';
 //import * as json  from 'json';
-//const credentials = require('./development.json');
+//const credentials = require('./development.json'); aaa
 
 const dbconfig = {
   host: 'localhost',
