@@ -529,8 +529,8 @@ app.get('/boardList', (req, res) => {
       console.log(err);
       res.status(500).send('Internal Server Error');
     }
-    console.log(result);
-    console.log(result[0]["DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s')"]);    
+    //console.log(result);
+    //console.log(result[0]["DATE_FORMAT(BOARD_DATE, '%Y-%m-%d %H:%i:%s')"]);    
     fs.readFile("./public/views/board/board_2.html", "utf-8", (err, data) => {
       if (err) throw err;
       // console.log(data);      
